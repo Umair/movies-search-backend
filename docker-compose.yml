@@ -1,0 +1,42 @@
+version: '2'
+services:
+  elasticsearch:
+    image: elasticsearch:7.9.1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - elasticsearch:/usr/share/elasticsearch/data
+  db:
+    image: "mysql:5.7"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "3307:3306"
+  web:
+    build: .
+    command: bin/docker-start
+    environment:
+      ELASTICSEARCH_HOST: elasticsearch
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_DATABASE: sample
+      DB_PORT: 3306
+      DB_HOST: db
+      RAILS_ENV: developement
+      RAILS_MAX_THREADS: 5
+    volumes:
+      - .:/rails
+    links:
+      - db
+      - elasticsearch
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - elasticsearch
+volumes:
+  elasticsearch: {}
+  mysql: {}

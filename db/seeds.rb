@@ -7,7 +7,7 @@ CSV.foreach(Rails.root.join("movies.csv"), {:headers => true}) do |csv|
 
   movie = Movie.find_by_title title
   if movie.blank?
-    Movie.create(title: title, year: year, director: director, filming_country: filming_country,
+    Movie.create(title: title, description: description, year: year, director: director, filming_country: filming_country,
                  filming_locations: filming_locations)
   else
     actor_obj = Actor.find_or_create_by(name: actor)

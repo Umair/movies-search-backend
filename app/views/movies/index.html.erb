@@ -1,0 +1,36 @@
+<h1>Listing Movies</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+      <th>Year</th>
+      <th>director</th>
+      <th>Actors</th>
+      <th>Filming Locations</th>
+      <th>Country</th>
+
+        <th colspan="3"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @movies.each do |movie| %>
+    <tr>
+        <td><%= movie.title %></td>
+        <td><%= movie.description %></td>
+      <td><%= movie.year %></td>
+      <td><%= movie.director %></td>
+      <td><%= movie.actors.pluck(:name) %></td>
+      <td><%= movie.filming_locations %></td>
+      <td><%= movie.filming_country %></td>
+        <td><%= link_to "Show", movie %></td>
+    </tr>
+    <% end %>
+    </tbody>
+</table>
+
+<br>
+
+

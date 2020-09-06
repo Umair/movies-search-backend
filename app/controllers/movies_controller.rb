@@ -2,9 +2,9 @@ class MoviesController < ApplicationController
   def index
 
     if params[:q]
-      @movies = Movie.search params[:q]
+      @movies = Movie.search(params[:q])
     else
-      @movies = Movie.all
+      @movies = Movie.all.includes(:actors)
     end
 
      respond_to do |format|
